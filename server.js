@@ -5,7 +5,7 @@ const dataB = require('./db/db.json');
 const uuid = require('./db/uuid');
 const fs = require('fs');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 const app = express();
 
@@ -85,8 +85,11 @@ app.post('/api/notes', (req, res) => {
   }
 });
 
-app.delete('/api/notes/:id', (req, res) => {
-  const requestedID = req.params.id;
+app.delete('/api/notes/:category', (req, res) => {
+  const requestedID = req.params.category.toLowerCase();
+  console.log(requestedID);
+
+  if (requestedID) {
 
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
     if (err) {
@@ -96,24 +99,30 @@ app.delete('/api/notes/:id', (req, res) => {
       const parsedNotes = JSON.parse(data);
       
       if (requestedID) {
-        for (let i = 0; i < parsedNotes[0].length; i++) {
-          if (requestedID === parsedNotes[0][i].id) {
-            return parsedNotes.splice(i, 1);
+        for (let i = 0; i < parsedNotes.length; i++) {
+          if (requestedID === parsedNotes[i].id) {
+            console.log(parsedNotes);
+            parsedNotes.splice(i, 1);
+            console.log(parsedNotes);
+            return fs.writeFile(
+              './db/db.json',
+              JSON.stringify(parsedNotes, null, 4),
+              (writeErr) =>
+                writeErr
+                  ? console.error(writeErr)
+                  : console.info('Successfully deleted notes!'));
           }
         }
       }
-
-      // Write updated notes back to the file
-      fs.writeFile(
-        './db/db.json',
-        JSON.stringify(parsedNotes, null, 4),
-        (writeErr) =>
-          writeErr
-            ? console.error(writeErr)
-            : console.info('Successfully deleted notes!')
-      );
     }
   });
+
+  console.log('1');
+  res.status(201).json('Success');
+} else {
+  res.status(500).json('Error in posting review');
+}
+
 });
 
 // GET '*' will return index.html 
