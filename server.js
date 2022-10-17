@@ -99,7 +99,7 @@ app.delete('/api/notes/:id', (req, res) => {
       if (requestedID) {
         for (let i = 0; i < parsedNotes.length; i++) {
           if (requestedID === parsedNotes[i].id) {
-            // parsedNotes.splice(i, 1);
+            parsedNotes.splice(i, 1);
             return fs.writeFile(
               './db/db.json',
               JSON.stringify(parsedNotes, null, 4),
