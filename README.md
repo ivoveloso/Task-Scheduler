@@ -24,6 +24,10 @@
 
   This application is deployed to Heroku. So no need for deployment.
   
+  [Heroku Page](https://protected-headland-50117.herokuapp.com/)
+  
+  ![Task-Scheduler Pic](./public/assets/task.png)
+  
   ## Usage
 
   Please find below usage information for this application.
