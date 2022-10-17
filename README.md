@@ -50,7 +50,7 @@
 
   - How can you reach me?
 
-  [Email me](https://mailto:ivo@email.com)
+  [Email me](mailto:ivovg5790@gmail.com)
 
   ## License
   
