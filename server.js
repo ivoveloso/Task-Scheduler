@@ -91,5 +91,5 @@ app.get('*', (req, res) =>
 );
 
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
+  console.log(`https://protected-headland-50117.herokuapp.com/🚀`)
 );

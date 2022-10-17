@@ -3,7 +3,7 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-const host = 'http://localhost:3002';
+const host = 'https://protected-headland-50117.herokuapp.com';
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
