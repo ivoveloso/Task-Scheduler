@@ -5,7 +5,7 @@ const dataB = require('./db/db.json');
 const uuid = require('./db/uuid');
 const fs = require('fs');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -85,10 +85,8 @@ app.post('/api/notes', (req, res) => {
   }
 });
 
-app.delete('/api/notes/:category', (req, res) => {
-  const requestedID = req.params.category.toLowerCase();
-  console.log(requestedID);
-
+app.delete('/api/notes/:id', (req, res) => {
+  const requestedID = req.params.id.toLowerCase();
   if (requestedID) {
 
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -101,9 +99,7 @@ app.delete('/api/notes/:category', (req, res) => {
       if (requestedID) {
         for (let i = 0; i < parsedNotes.length; i++) {
           if (requestedID === parsedNotes[i].id) {
-            console.log(parsedNotes);
-            parsedNotes.splice(i, 1);
-            console.log(parsedNotes);
+            // parsedNotes.splice(i, 1);
             return fs.writeFile(
               './db/db.json',
               JSON.stringify(parsedNotes, null, 4),
@@ -117,7 +113,6 @@ app.delete('/api/notes/:category', (req, res) => {
     }
   });
 
-  console.log('1');
   res.status(201).json('Success');
 } else {
   res.status(500).json('Error in posting review');
